@@ -12,10 +12,6 @@
 		373D353A130F075E0037F8DD /* GlobalKeyboardDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 373D3538130F075E0037F8DD /* GlobalKeyboardDevice.m */; };
 		3740B9351311708D0084326B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3740B9341311708D0084326B /* Localizable.strings */; };
 		37AD8316131AA9E600F0123C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AD8315131AA9E600F0123C /* Quartz.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		37BB532C1312C017001710B4 /* UniversalDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BB532B1312C017001710B4 /* UniversalDetector.framework */; };
-		37BB53461312C01C001710B4 /* XADMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BB53451312C01C001710B4 /* XADMaster.framework */; };
-		37BB54D21312CADE001710B4 /* XADMaster.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37BB53451312C01C001710B4 /* XADMaster.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		37BB54D31312CADE001710B4 /* UniversalDetector.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37BB532B1312C017001710B4 /* UniversalDetector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		7601F5F807D5508700457A5B /* CustomImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7601F5F607D5508700457A5B /* CustomImageView.h */; };
 		7601F5F907D5508700457A5B /* CustomImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7601F5F707D5508700457A5B /* CustomImageView.m */; };
 		761B469E0D61E95D00667B2A /* AccessoryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 761B469C0D61E95D00667B2A /* AccessoryView.h */; };
@@ -128,8 +124,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				37BB54D21312CADE001710B4 /* XADMaster.framework in CopyFiles */,
-				37BB54D31312CADE001710B4 /* UniversalDetector.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,8 +140,6 @@
 		373D3537130F075E0037F8DD /* GlobalKeyboardDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalKeyboardDevice.h; sourceTree = "<group>"; };
 		373D3538130F075E0037F8DD /* GlobalKeyboardDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalKeyboardDevice.m; sourceTree = "<group>"; };
 		37AD8315131AA9E600F0123C /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
-		37BB532B1312C017001710B4 /* UniversalDetector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UniversalDetector.framework; sourceTree = "<group>"; };
-		37BB53451312C01C001710B4 /* XADMaster.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XADMaster.framework; sourceTree = "<group>"; };
 		7601F5F607D5508700457A5B /* CustomImageView.h */ = {isa = PBXFileReference; fileEncoding = 0; lastKnownFileType = sourcecode.c.h; path = CustomImageView.h; sourceTree = "<group>"; };
 		7601F5F707D5508700457A5B /* CustomImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImageView.m; sourceTree = "<group>"; };
 		76181B7D08BE17BC000A527E /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -264,8 +256,6 @@
 				7644B3240D6EE315007C8AFD /* System.framework in Frameworks */,
 				7644B3260D6EE322007C8AFD /* IOKit.framework in Frameworks */,
 				7644B3370D6EE434007C8AFD /* Carbon.framework in Frameworks */,
-				37BB53461312C01C001710B4 /* XADMaster.framework in Frameworks */,
-				37BB532C1312C017001710B4 /* UniversalDetector.framework in Frameworks */,
 				37AD8316131AA9E600F0123C /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,8 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				A397A3DD23C877FD009FE76D /* ja.xliff */,
-				37BB53451312C01C001710B4 /* XADMaster.framework */,
-				37BB532B1312C017001710B4 /* UniversalDetector.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -827,7 +815,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ARCHS = "arm64 x86_64";
 				ONLY_ACTIVE_ARCH = YES;
 				SYMROOT = build/;
 				ZERO_LINK = YES;
@@ -858,10 +847,19 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/include";
 				INFOPLIST_FILE = info.plist;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lXADMaster",
+					"-lUniversalDetector",
+					"-lz",
+					"-lbz2",
+					"-lc++",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Libraries";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.coo.cooViewer;
 				PRODUCT_NAME = cooViewer;
 				ZERO_LINK = YES;
@@ -898,7 +896,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ARCHS = "arm64 x86_64";
 				ONLY_ACTIVE_ARCH = YES;
 				SYMROOT = build/;
 				ZERO_LINK = YES;
@@ -927,10 +926,19 @@
 				GCC_WARN_UNUSED_LABEL = NO;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/include";
 				INFOPLIST_FILE = info.plist;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lXADMaster",
+					"-lUniversalDetector",
+					"-lz",
+					"-lbz2",
+					"-lc++",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Libraries";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.coo.cooViewer;
 				PRODUCT_NAME = cooViewer;
 				ZERO_LINK = YES;
@@ -969,7 +977,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ARCHS = "arm64 x86_64";
 				SYMROOT = build/;
 				ZERO_LINK = YES;
 			};
@@ -998,10 +1007,19 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/include";
 				INFOPLIST_FILE = info.plist;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lXADMaster",
+					"-lUniversalDetector",
+					"-lz",
+					"-lbz2",
+					"-lc++",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Libraries";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.coo.cooViewer;
 				PRODUCT_NAME = cooViewer;
 				ZERO_LINK = NO;
@@ -1029,10 +1047,19 @@
 				GCC_WARN_UNUSED_LABEL = NO;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = NO;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/include";
 				INFOPLIST_FILE = info.plist;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lXADMaster",
+					"-lUniversalDetector",
+					"-lz",
+					"-lbz2",
+					"-lc++",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Libraries";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.coo.cooViewer;
 				PRODUCT_NAME = cooViewer;
 				ZERO_LINK = NO;
@@ -1055,7 +1082,17 @@
 				GCC_PREFIX_HEADER = cooViewer_Prefix.pch;
 				INFOPLIST_FILE = info.plist;
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+					"-lXADMaster",
+					"-lUniversalDetector",
+					"-lz",
+					"-lbz2",
+					"-lc++",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Libraries";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/Libraries/include";
 				PRODUCT_BUNDLE_IDENTIFIER = jp.coo.cooViewer;
 				PRODUCT_NAME = cooViewer;
 			};
@@ -1089,7 +1126,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ARCHS = "arm64 x86_64";
 				SYMROOT = build/;
 			};
 			name = Deployment;
@@ -1122,7 +1160,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				ARCHS = "arm64 x86_64";
 				SYMROOT = build/;
 			};
 			name = Default;
