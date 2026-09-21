@@ -31,6 +31,14 @@
 }
 - (void)screenParametersDidChange:(NSNotification *)aNotification
 {
+	// この通知はメニューバーの表示/非表示（visibleFrame の変化）でも飛んでくる。
+	// そのたびに setHideMenuBar を呼ぶと「メニューバーが出た瞬間に消す」ループになる
+	// （2026-09-21 実害: フルスクリーンでメニューバーが選べない・他アプリでも消える）。
+	// 画面の実寸（frame）が変わった時だけ再計算する
+	static NSRect lastScreenFrame = {{0,0},{0,0}};
+	NSRect cur = [[NSScreen mainScreen] frame];
+	if (NSEqualRects(cur, lastScreenFrame)) return;
+	lastScreenFrame = cur;
 	if (fullscreen) [self setHideMenuBar:hideMenuBar];
 }
 - (void)setFrame:(NSRect)windowFrame display:(BOOL)displayViews
