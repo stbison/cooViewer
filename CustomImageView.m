@@ -1422,6 +1422,12 @@ NSTimeInterval elapsed=0;
     NSRect temp = [[[self window] contentView] frame];
     temp.origin = [[self window] frame].origin;
     [accessoryWindow setFrame:temp display:YES];
+    // フルスクリーン時の親は hidesOnDeactivate=YES。他アプリから戻った時に子ウィンドウが
+    // 再表示されない / 親の下に潜ることがあるので、位置合わせのついでに必ず親の直上へ出す
+    if ([[self window] isVisible]) {
+        if (![accessoryWindow isVisible]) [accessoryWindow orderFront:nil];
+        [accessoryWindow orderWindow:NSWindowAbove relativeTo:[[self window] windowNumber]];
+    }
     //[self displayIfNeededInRect:[self visibleRect]];
     //[self setNeedsDisplayInRect:[self visibleRect]];
 }

@@ -2985,10 +2985,23 @@ static const int DIALOG_CANCEL	= 129;
 - (void)windowDidMove:(NSNotification *)aNotification
 {
 	if (![window isFullScreen]) [window saveFrameUsingName:@"NormalWindow"];
+	// 子ウィンドウ（AccessoryWindow）は macOS が親を動かした時に同じ差分で自動追従するため、
+	// アプリ側の setFrame: 以外の経路（Space 切替・メニューバー出現・ディスプレイ変更）で
+	// 親と子がずれる。親が動いた通知で必ず内容領域に合わせ直す
+	[imageView setAccessoryWindowFrame];
 }
 - (void)windowDidResize:(NSNotification *)aNotification
 {
 	if (![window isFullScreen]) [window saveFrameUsingName:@"NormalWindow"];
+	[imageView setAccessoryWindowFrame];
+}
+- (void)windowDidBecomeKey:(NSNotification *)aNotification
+{
+	[imageView setAccessoryWindowFrame];
+}
+- (void)windowDidChangeScreen:(NSNotification *)aNotification
+{
+	[imageView setAccessoryWindowFrame];
 }
 - (void)applicationWillTerminate:(NSNotification *)notification
 {

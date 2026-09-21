@@ -22,6 +22,16 @@
 	[self setFullScreen:fullscreen];
 	if (!fullscreen) [[[[[NSApp mainMenu] itemWithTitle:NSLocalizedString(@"Window", @"")] submenu] itemWithTitle:NSLocalizedString(@"Fullscreen", @"")] setState:NSOffState];
 	[self setShowsResizeIndicator:NO];
+	// 解像度・ディスプレイ構成が変わったらフルスクリーン矩形を取り直す
+	// （従来はフルスクリーン切替時に一度計算するだけで、以前の解像度のまま残っていた）
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(screenParametersDidChange:)
+												 name:NSApplicationDidChangeScreenParametersNotification
+											   object:nil];
+}
+- (void)screenParametersDidChange:(NSNotification *)aNotification
+{
+	if (fullscreen) [self setHideMenuBar:hideMenuBar];
 }
 - (void)setFrame:(NSRect)windowFrame display:(BOOL)displayViews
 {
