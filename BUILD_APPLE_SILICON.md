@@ -15,7 +15,10 @@
   - `OTHER_LDFLAGS = -ObjC -all_load -lXADMaster -lUniversalDetector -lz -lbz2 -lc++`
     - **`-ObjC -all_load` が無いと、zip/rar 等のパーサクラスがリンカに捨てられて
       「broken or not image file」になる**（静的ライブラリ化に伴う唯一の罠）
-- ソースコード (`*.m`) は無変更
+- ソースコードの変更（Apple Silicon 化そのものには不要だが、フルスクリーン運用で実害があったもの）:
+  - `CustomWindow.m`: タイトルバー高さを 22px 決め打ち → 実測値（PR #27 kanjitalk755 氏の修正を取り込み。macOS 26 では 32px で、旧コードは下 10px が切れる）
+  - `Controller.m` / `CustomImageView.m`: ページバー（AccessoryWindow、親の子ウィンドウ）が macOS の親ウィンドウ自動移動や `hidesOnDeactivate` で取り残される・消える → 親の move / resize / becomeKey / changeScreen で再配置し、見えていなければ親の直上に出す
+  - `CustomWindow.m`: 解像度・ディスプレイ構成の変更で旧サイズのまま残る → `NSApplicationDidChangeScreenParametersNotification` でフルスクリーン矩形を再計算。**この通知はメニューバーの表示/非表示でも飛ぶ**ので、画面の実寸（`frame`）が変わった時だけ処理する（ガード無しだと、メニューバーが出た瞬間に消すループになる）
 
 ## ビルド
 
