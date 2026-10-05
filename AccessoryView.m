@@ -816,10 +816,25 @@ NSRect COIntRect(NSRect aRect)
 #pragma mark pageBar
 -(void)drawPageBar
 {
-	if (NSIsEmptyRect(pageBarRect)) {
-		[self setNeedsDisplayInRect:[self pageBarRect]];
+	// pageBarBezierPath は setPreferences と setFrame: でしか作り直されない。
+	// ページバーを非表示にしている間は pageBarRect が NSZeroRect になるため、
+	// その状態で setFrame: が走るとゼロサイズの図形が残る。表示に戻しても
+	// ここで図形を作り直していなかったので、枠も塗りも大きさ 0 のまま描かれ
+	// （読了部分も addClip でゼロ領域に切り取られ）、バーが消えて見えた。
+	// 表示の切り替えのたびに、今の pageBarRect で作り直す。
+	NSRect oldRect = pageBarRect;
+	[pageBarBezierPath release];
+	pageBarRect = [self pageBarRect];
+	NSRect innerRect = NSInsetRect(pageBarRect,1,1);
+	pageBarBezierPath = [[NSBezierPath bezierPathWithRectWithDoubleArc:innerRect] retain];
+	[pageBarBezierPath closePath];
+
+	// 非表示に切り替えた時は古い矩形を消す必要があるので、新旧の和を再描画する
+	NSRect dirtyRect = NSUnionRect(oldRect,pageBarRect);
+	if (NSIsEmptyRect(dirtyRect)) {
+		[self setNeedsDisplay:YES];
 	} else {
-		[self setNeedsDisplayInRect:pageBarRect];
+		[self setNeedsDisplayInRect:dirtyRect];
 	}
 }
 -(NSRect)pageBarRect
